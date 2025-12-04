@@ -141,17 +141,38 @@ def main():
         st.error("Min PTU count must be <= Max PTU count")
         return
     
-    # File upload
+    # File upload or direct file path
     st.header("Upload Usage Data")
-    uploaded_file = st.file_uploader(
-        "Choose CSV file", 
-        type="csv",
-        help="Upload CSV with columns: timestamp, input tokens, output tokens"
-    )
     
-    if uploaded_file is None:
-        st.info("Please upload a CSV file to begin analysis. Columns required: timestamp [UTC] format: 8/18/2025, 12:00:38.941 AM,input_tokens,output_tokens,total_tokens")
-        return
+    # Check for large analysis file in analysis_output directory
+    import os
+    analysis_csv_path = "analysis_output/nvstrgitentint_complete_analysis.csv"
+    has_large_file = os.path.exists(analysis_csv_path)
+    
+    # Option to use pre-existing large file
+    use_existing_file = False
+    if has_large_file:
+        file_size_gb = os.path.getsize(analysis_csv_path) / (1024**3)
+        st.info(f"🎯 Large analysis file detected: `{analysis_csv_path}` ({file_size_gb:.2f} GB)")
+        use_existing_file = st.checkbox(
+            f"Use existing large file ({file_size_gb:.2f} GB) - bypasses 200MB upload limit",
+            value=True,
+            help="The analysis CSV is too large for web upload. Enable this to read directly from disk."
+        )
+    
+    if use_existing_file:
+        uploaded_file = None  # Will be handled separately
+        st.success(f"✅ Will process file from: `{analysis_csv_path}`")
+    else:
+        uploaded_file = st.file_uploader(
+            "Choose CSV file", 
+            type="csv",
+            help="Upload CSV with columns: timestamp, input tokens, output tokens (max 200MB)"
+        )
+        
+        if uploaded_file is None:
+            st.info("Please upload a CSV file to begin analysis. Columns required: timestamp [UTC] format: 8/18/2025, 12:00:38.941 AM,input_tokens,output_tokens,total_tokens")
+            return
     
     # Process uploaded file (with caching to avoid re-reading)
     @st.cache_data
@@ -167,12 +188,28 @@ def main():
         except Exception as e:
             return None, str(e)
     
-    # Get file content for caching (file object changes on each run)
-    file_content = uploaded_file.getvalue()
-    file_name = uploaded_file.name
+    @st.cache_data
+    def process_large_file(file_path):
+        """Cache large file processing - reads directly from disk"""
+        try:
+            # Read in chunks to handle large files efficiently
+            st.info(f"Reading large CSV file: {file_path}")
+            df = pd.read_csv(file_path, dtype=str)
+            st.info(f"Loaded {len(df):,} rows")
+            processed_df, error_msg = prepare_dataframe(df)
+            return processed_df, error_msg
+        except Exception as e:
+            return None, str(e)
     
-    with st.spinner("Processing uploaded file..."):
-        processed_df, error_msg = process_uploaded_file(file_content, file_name)
+    # Get file content for caching
+    if use_existing_file:
+        with st.spinner(f"Processing large file from disk ({file_size_gb:.2f} GB)..."):
+            processed_df, error_msg = process_large_file(analysis_csv_path)
+    else:
+        file_content = uploaded_file.getvalue()
+        file_name = uploaded_file.name
+        with st.spinner("Processing uploaded file..."):
+            processed_df, error_msg = process_uploaded_file(file_content, file_name)
         
         if error_msg:
             st.error(f"Error processing file: {error_msg}")
