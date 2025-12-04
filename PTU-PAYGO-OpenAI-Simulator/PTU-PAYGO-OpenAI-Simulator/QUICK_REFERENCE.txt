@@ -1,0 +1,78 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                     PTU ANALYSIS - QUICK REFERENCE                           ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📊 MONITORING COMMANDS
+────────────────────────────────────────────────────────────────────────────────
+  Quick Status:          ./status.sh
+  View Updates Log:      cat status_updates.log
+  Live Progress:         tail -f analysis_output/parallel_processing_with_versions.log | grep Progress
+  Monitor Completion:    tail -f completion_monitor.log
+
+🔄 ACTIVE PROCESSES
+────────────────────────────────────────────────────────────────────────────────
+  1. Parallel Processor (PID 12264)
+     • 100 workers processing 120,124 blobs
+     • ETA: ~4.4 hours (around 2:15 PM PST)
+     
+  2. Completion Monitor (Background)
+     • Checks every 5 minutes
+     • Sends notification when done
+     
+  3. Recurring Status (PID 26887) ⭐ NEW!
+     • Updates every 30 minutes
+     • Logs to: status_updates.log
+     • Auto-stops when processing complete
+
+📁 OUTPUT FILES (WHEN COMPLETE)
+────────────────────────────────────────────────────────────────────────────────
+  CSV:    analysis_output/nvstrgitentint_complete_analysis_with_models.csv
+          ~3.2 GB with columns: timestamp, tokens, model, model_version, result_code
+          
+  Report: analysis_output/nvstrgitentint_complete_analysis_with_models_report.txt
+          Statistics, model breakdown, token usage, resource groups
+
+⏭️  NEXT STEPS (AFTER COMPLETION)
+────────────────────────────────────────────────────────────────────────────────
+  Batch Analysis (Recommended):
+    python3 batch_analyze_models.py \
+      --csv analysis_output/nvstrgitentint_complete_analysis_with_models.csv \
+      --output-dir ./model_analysis
+  
+  This will:
+    • Analyze each model individually
+    • Generate PTU recommendations per model
+    • Create cost comparisons
+    • Produce summary report across all models
+
+🔔 NOTIFICATIONS
+────────────────────────────────────────────────────────────────────────────────
+  • Completion notification with sound (when done)
+  • Status notification every 2 hours (optional reminder)
+  • All updates logged to status_updates.log
+
+⚠️  MANAGEMENT COMMANDS
+────────────────────────────────────────────────────────────────────────────────
+  Stop Processing:       pkill -f "download_azure_logs_parallel.py"
+  Stop All Monitors:     pkill -f "recurring_status.sh"
+                        pkill -f "wait_for_completion.sh"
+  
+  Check Running:        ps aux | grep -E "(download_azure|recurring|wait_for)" | grep -v grep
+
+📈 CURRENT PROGRESS (as of 10:17 AM)
+────────────────────────────────────────────────────────────────────────────────
+  Status:     ✅ RUNNING
+  Progress:   7% complete (9,200 / 120,124 blobs)
+  Remaining:  110,924 blobs
+  Rate:       6.9 blobs/sec (414 blobs/min)
+  Entries:    1,177,366 processed
+  ETA:        4.4 hours
+
+📖 DOCUMENTATION
+────────────────────────────────────────────────────────────────────────────────
+  Full Guide:     cat PROCESSING_STATUS.md
+  This Card:      cat QUICK_REFERENCE.txt
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  All systems running smoothly! Check status_updates.log for regular updates  ║
+╚══════════════════════════════════════════════════════════════════════════════╝

@@ -1,3 +1,16 @@
 .venv
 .github
 __pycache__/
+*.pyc
+.DS_Store
+
+# Customer Data - DO NOT COMMIT
+PTU-PAYGO-OpenAI-Simulator/PTU-PAYGO-OpenAI-Simulator/analysis_output/
+PTU-PAYGO-OpenAI-Simulator/PTU-PAYGO-OpenAI-Simulator/batch_analysis_output/
+PTU-PAYGO-OpenAI-Simulator/PTU-PAYGO-OpenAI-Simulator/*.csv
+PTU-PAYGO-OpenAI-Simulator/PTU-PAYGO-OpenAI-Simulator/*.log
+PTU-PAYGO-OpenAI-Simulator/PTU-PAYGO-OpenAI-Simulator/samples/*.csv
+PTU-PAYGO-OpenAI-Simulator/PTU-PAYGO-OpenAI-Simulator/samples/*.json
+
+# Keep only the sample folder structure
+!PTU-PAYGO-OpenAI-Simulator/PTU-PAYGO-OpenAI-Simulator/samples/.gitkeep

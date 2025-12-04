@@ -1,0 +1,6 @@
+{
+  "github.copilot.chat.localeOverride": "en",
+  "github.copilot.enable": {
+    "*": true
+  }
+}
