@@ -10,7 +10,7 @@ from azure.storage.blob import BlobServiceClient
 from azure.identity import DefaultAzureCredential
 
 # Configuration
-STORAGE_ACCOUNT_NAME = "randyscommondatawus3"
+STORAGE_ACCOUNT_NAME = "your-storage-account"
 STORAGE_ACCOUNT_URL = f"https://{STORAGE_ACCOUNT_NAME}.blob.core.windows.net"
 OUTPUT_FILE = "azure_openai_usage.csv"
 

@@ -15,16 +15,16 @@ RESOURCE_GROUP = "common"
 
 # List of OpenAI accounts to query
 OPENAI_ACCOUNTS = [
-    "randysopenaiwus",
-    "randysopenaieastus",
-    "randysopenaieastus2",
-    "randysopenaicanadacentral",
-    "randysopenainorthcentral",
-    "randysopenaiwestus3",
-    "randysopenaicanadaeast",
-    "randysopenaiaustraliaeast",
-    "randysopenaibrazsouth",
-    "randysopenaisouthindia"
+    "openai-westus",
+    "openai-eastus",
+    "openai-eastus2",
+    "openai-canadacentral",
+    "openai-northcentral",
+    "openai-westus3",
+    "openai-canadaeast",
+    "openai-australiaeast",
+    "openai-brazilsouth",
+    "openai-southindia"
 ]
 
 def run_az_command(command):

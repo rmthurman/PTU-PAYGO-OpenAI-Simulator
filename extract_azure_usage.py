@@ -22,7 +22,7 @@ from typing import List, Dict, Optional
 import re
 
 # Configuration
-STORAGE_ACCOUNT_NAME = "randyscommondatawus3"
+STORAGE_ACCOUNT_NAME = "your-storage-account"
 STORAGE_ACCOUNT_URL = f"https://{STORAGE_ACCOUNT_NAME}.blob.core.windows.net"
 CONTAINER_NAME = "insights-logs-requestresponse"
 
@@ -360,7 +360,7 @@ Examples:
   python %(prog)s --start-date 2025-10-01 --end-date 2025-11-13
   
   # Extract for specific accounts
-  python %(prog)s --days 30 --accounts randysopenaieastus randysopenaiwestus3
+  python %(prog)s --days 30 --accounts openai-eastus openai-westus3
   
   # Include metadata columns
   python %(prog)s --days 7 --include-metadata

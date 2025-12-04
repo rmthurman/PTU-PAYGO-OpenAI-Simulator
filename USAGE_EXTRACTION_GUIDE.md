@@ -49,7 +49,7 @@ python extract_azure_usage.py --days 30
 Extract only from specific OpenAI accounts:
 
 ```bash
-python extract_azure_usage.py --days 30 --accounts RANDYSOPENAIEASTUS RANDYSOPENAIWESTUS3
+python extract_azure_usage.py --days 30 --accounts OPENAI-EASTUS OPENAI-WESTUS3
 ```
 
 ### 6. Include Metadata
@@ -104,13 +104,13 @@ Extract and compare usage from different regions:
 # East US
 python extract_azure_usage.py \
   --days 30 \
-  --accounts RANDYSOPENAIEASTUS \
+  --accounts OPENAI-EASTUS \
   --output eastus_usage.csv
 
 # West US 3
 python extract_azure_usage.py \
   --days 30 \
-  --accounts RANDYSOPENAIWESTUS3 \
+  --accounts OPENAI-WESTUS3 \
   --output westus3_usage.csv
 ```
 

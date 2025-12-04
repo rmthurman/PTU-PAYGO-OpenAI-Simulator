@@ -41,7 +41,7 @@ def test_storage_access():
         from azure.storage.blob import BlobServiceClient
         from azure.identity import DefaultAzureCredential
         
-        storage_account = "randyscommondatawus3"
+        storage_account = "your-storage-account"
         storage_url = f"https://{storage_account}.blob.core.windows.net"
         
         credential = DefaultAzureCredential()

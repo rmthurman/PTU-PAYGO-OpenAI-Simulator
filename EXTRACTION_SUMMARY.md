@@ -29,7 +29,7 @@ python extract_azure_usage.py --days 30
 python extract_azure_usage.py --start-date 2025-10-01 --end-date 2025-11-13
 
 # Specific accounts
-python extract_azure_usage.py --days 30 --accounts RANDYSOPENAIEASTUS RANDYSOPENAIWESTUS3
+python extract_azure_usage.py --days 30 --accounts OPENAI-EASTUS OPENAI-WESTUS3
 
 # List available accounts
 python extract_azure_usage.py --list-accounts
@@ -73,7 +73,7 @@ Azure OpenAI Services
          ↓
    Diagnostic Logs
          ↓
-Azure Storage Account (randyscommondatawus3)
+Azure Storage Account (your-storage-account)
          ↓
 Container: insights-logs-requestresponse
          ↓
@@ -118,10 +118,10 @@ python test_system.py
 # 3. List available accounts
 python extract_azure_usage.py --list-accounts
 # Output:
-#   - RANDYSOPENAIEASTUS
-#   - RANDYSOPENAIEASTUS2
-#   - RANDYSOPENAINORTHCENTRAL
-#   - RANDYSOPENAIWESTUS3
+#   - OPENAI-EASTUS
+#   - OPENAI-EASTUS2
+#   - OPENAI-NORTHCENTRAL
+#   - OPENAI-WESTUS3
 
 # 4. Extract last 30 days with metadata
 python extract_azure_usage.py --days 30 --include-metadata --output nov_usage.csv
@@ -205,7 +205,7 @@ The extraction provides comprehensive statistics:
 
 ### Storage Account Access
 Currently configured for:
-- **Account**: `randyscommondatawus3`
+- **Account**: `your-storage-account`
 - **Container**: `insights-logs-requestresponse`
 - **Auth**: Azure AD (DefaultAzureCredential)
 

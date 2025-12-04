@@ -11,7 +11,7 @@ from azure.identity import DefaultAzureCredential
 import re
 
 # Configuration
-STORAGE_ACCOUNT_NAME = "randyscommondatawus3"
+STORAGE_ACCOUNT_NAME = "your-storage-account"
 STORAGE_ACCOUNT_URL = f"https://{STORAGE_ACCOUNT_NAME}.blob.core.windows.net"
 CONTAINER_NAME = "insights-logs-requestresponse"
 OUTPUT_FILE = "azure_openai_usage.csv"
